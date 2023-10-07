@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +18,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::View('admin','Admin');
+Route::get('/admin', function () {
+    return view('Admin');
+});
+
+
+Route::get('/articles',[ArticleController::class,"liste_articles"])->name('article.liste');
+
+Route::get('/ajouterArticle',[ArticleController::class,"ajouterArticle"])->name('article.ajouter');
+Route::post('/ajouterArticle/traitement',[ArticleController::class,"ajouterArticleTraitement"])->name('article.ajouterTraitement');
+
+Route::get('/updateArticle/{article}',[ArticleController::class,"updateArticle"])->name('article.edit');
+Route::post('/updateArticle/{article}/traitement',[ArticleController::class,"updateArticleTraitement"])->name('article.update');
+
+
+Route::delete('/deleteArticle/{article}/delete',[ArticleController::class,'delete'])->name('article.delete');
+
+
